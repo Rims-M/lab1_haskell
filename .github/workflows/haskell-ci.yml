@@ -21,14 +21,14 @@ jobs:
           cabal-version: '3.10.2.0'
           enable-stack: false
 
-                - name: Update Cabal package list
+      - name: Update Cabal package list
         run: cabal update
 
       - name: Install HUnit
         run: cabal install --lib HUnit --package-env .
 
-              - name: Compile with warnings as errors
+      - name: Compile with warnings as errors
         run: ghc --make -Wall -Werror -O2 1_uzd_haskell.hs -o demo
 
-             - name: Run unit tests
-        run: ./demo 
+      - name: Run unit tests
+        run: ./demo
