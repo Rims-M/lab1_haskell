@@ -1,0 +1,34 @@
+name: Haskell CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up GHC and Cabal
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: '9.4.8'
+          cabal-version: '3.10.2.0'
+          enable-stack: false
+
+                - name: Update Cabal package list
+        run: cabal update
+
+      - name: Install HUnit
+        run: cabal install --lib HUnit --package-env .
+
+              - name: Compile with warnings as errors
+        run: ghc --make -Wall -Werror -O2 1_uzd_haskell.hs -o demo
+
+             - name: Run unit tests
+        run: ./demo 
