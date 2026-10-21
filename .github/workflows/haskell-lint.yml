@@ -53,13 +53,18 @@ jobs:
         run: weeder
 
   stylish:
-         - name: Install stylish-haskell
-        run: |
-          curl -sL https://raw.githubusercontent.com/haskell/stylish-haskell/master/scripts/latest.sh | sh -s -- --version
+    name: stylish-haskell (style)
+    runs-on: ubuntu-latest
 
-      - name: Check formatting
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check formatting with stylish-haskell
         run: |
-          stylish-haskell 1_uzd_haskell.hs > 1_uzd_haskell.stylish.hs
+          curl -sL https://raw.githubusercontent.com/haskell/stylish-haskell/master/scripts/latest.sh \
+            | sh -s -- 1_uzd_haskell.hs > 1_uzd_haskell.stylish.hs
+
           if ! diff -u 1_uzd_haskell.hs 1_uzd_haskell.stylish.hs; then
             echo "::error::1_uzd_haskell.hs is not stylish-haskell formatted"
             exit 1
