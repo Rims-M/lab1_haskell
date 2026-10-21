@@ -53,21 +53,9 @@ jobs:
         run: weeder
 
   stylish:
-    name: stylish-haskell (style)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install stylish-haskell
+         - name: Install stylish-haskell
         run: |
-          URL=$(curl -s https://api.github.com/repos/haskell/stylish-haskell/releases/latest \
-                | grep -oP '"browser_download_url":\s*"\K[^"]*linux-x86_64\.tar\.gz')
-          echo "Downloading: $URL"
-          curl -sL "$URL" | tar xz
-          sudo mv stylish-haskell /usr/local/bin/
-          stylish-haskell --version
+          curl -sL https://raw.githubusercontent.com/haskell/stylish-haskell/master/scripts/latest.sh | sh -s -- --version
 
       - name: Check formatting
         run: |
