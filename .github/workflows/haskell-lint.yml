@@ -44,7 +44,7 @@ jobs:
         run: |
           cabal update
           cabal install --lib HUnit --package-env .
-          ghc --make -Wall 1_uzd_haskell.hs -o demo -hiedir .hie
+          ghc --make -Wall -fwrite-ide-info 1_uzd_haskell.hs -o demo -hiedir .hie
 
       - name: Install Weeder
         run: cabal install weeder --install-method=copy
