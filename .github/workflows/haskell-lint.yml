@@ -1,0 +1,79 @@
+name: Haskell Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hlint:
+    name: HLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run HLint
+        uses: haskell-actions/hlint-setup@v2
+        with:
+          hlint-version: '3.6'
+
+      - name: HLint check
+        uses: haskell-actions/hlint-run@v2
+        with:
+          path: '.'
+          fail-on: warning
+
+  weeder:
+    name: Weeder (dead code)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up GHC and Cabal
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: '9.4.8'
+          cabal-version: '3.10.2.0'
+
+      - name: Build with HIE files
+        run: |
+          cabal update
+          cabal install --lib HUnit --package-env .
+          ghc --make -Wall 1_uzd_haskell.hs -o demo -hiedir .hie
+
+      - name: Install Weeder
+        run: cabal install weeder --install-method=copy
+
+      - name: Run Weeder
+        run: weeder
+
+  stylish:
+    name: stylish-haskell (style)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install stylish-haskell
+        run: |
+          URL=$(curl -s https://api.github.com/repos/haskell/stylish-haskell/releases/latest \
+                | grep -oP '"browser_download_url":\s*"\K[^"]*linux-x86_64\.tar\.gz')
+          echo "Downloading: $URL"
+          curl -sL "$URL" | tar xz
+          sudo mv stylish-haskell /usr/local/bin/
+          stylish-haskell --version
+
+      - name: Check formatting
+        run: |
+          stylish-haskell 1_uzd_haskell.hs > 1_uzd_haskell.stylish.hs
+          if ! diff -u 1_uzd_haskell.hs 1_uzd_haskell.stylish.hs; then
+            echo "::error::1_uzd_haskell.hs is not stylish-haskell formatted"
+            exit 1
+          fi
+
