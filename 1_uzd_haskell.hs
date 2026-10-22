@@ -4,7 +4,7 @@ atrast lielako skaitli no saraksta
 
 ievade
 [Int] - skaitlu saraksts, kura tiek meklets lielakais skaitlis
-  
+
 izvade
 Int - lielakais skaitlis no saraksta
 
@@ -18,7 +18,7 @@ Piemers:findMaxNumber [5, 10, 11, 15, 3, 8] == 15
 -}
 
 --import Data.Char (toUpper)
-import          Test.HUnit
+import           Test.HUnit
 --1.uzdevums
 
 findMaxNumber :: [Int] -> Int
@@ -68,3 +68,5 @@ main = do
     if errors counts + failures counts == 0
         then return ()
         else error "HUnit testi neizdevas"
+
+        
