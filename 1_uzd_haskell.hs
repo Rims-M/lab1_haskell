@@ -18,12 +18,12 @@ Piemers:findMaxNumber [5, 10, 11, 15, 3, 8] == 15
 -}
 
 --import Data.Char (toUpper)
-import Test.HUnit
+import          Test.HUnit
 --1.uzdevums
 
 findMaxNumber :: [Int] -> Int
-findMaxNumber [] = error "Saraksts ir tukss"
-findMaxNumber [x] = x
+findMaxNumber []     = error "Saraksts ir tukss"
+findMaxNumber [x]    = x
 findMaxNumber (x:xs) = max x (findMaxNumber xs)
 
 --testNormalList :: Test
