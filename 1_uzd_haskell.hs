@@ -68,4 +68,3 @@ main = do
     if errors counts + failures counts == 0
         then return ()
         else error "HUnit testi neizdevas"
-        
