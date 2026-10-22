@@ -70,9 +70,4 @@ jobs:
         run: cabal install stylish-haskell --install-method=copy
 
       - name: Check formatting
-        run: |
-          stylish-haskell 1_uzd_haskell.hs > 1_uzd_haskell.stylish.hs
-          if ! diff -u 1_uzd_haskell.hs 1_uzd_haskell.stylish.hs; then
-            echo "::error::1_uzd_haskell.hs is not stylish-haskell formatted"
-            exit 1
-          fi
+        run: stylish-haskell --check 1_uzd_haskell.hs
