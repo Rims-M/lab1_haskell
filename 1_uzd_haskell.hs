@@ -70,4 +70,3 @@ main = do
         else error "HUnit testi neizdevas"
 
         
-
