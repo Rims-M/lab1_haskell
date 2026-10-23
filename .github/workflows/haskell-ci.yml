@@ -27,8 +27,14 @@ jobs:
       - name: Install HUnit
         run: cabal install --lib HUnit --package-env .
 
-      - name: Compile with warnings as errors
-        run: ghc --make -Wall -Werror -O2 1_uzd_haskell.hs -o demo
+      - name: Compile task 1
+        run: ghc --make -Wall -Werror -O2 1_uzd_haskell.hs -o demo1
 
-      - name: Run unit tests
-        run: ./demo
+      - name: Run task 1 unit tests
+        run: ./demo1
+
+      - name: Compile task 2
+        run: ghc --make -Wall -Werror -O2 2_uzd_haskell.hs -o demo2
+
+      - name: Run task 2 unit tests
+        run: echo "test" | ./demo2
