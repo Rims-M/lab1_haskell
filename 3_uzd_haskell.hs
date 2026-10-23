@@ -5,6 +5,7 @@ capitalizeWord :: String -> String
 capitalizeWord [] = []
 capitalizeWord (x:xs) = toUpper x : xs
 
+{-# ANN capitalizeSentence "HLint: ignore Use map" #-}
 capitalizeSentence :: String -> String
 capitalizeSentence sentence = 
     unwords(foldr (\word acc -> capitalizeWord word : acc) [] (words sentence))
