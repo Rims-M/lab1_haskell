@@ -44,3 +44,9 @@ jobs:
 
       - name: Run task 3 unit tests
         run: echo "test sentence" | ./demo3
+
+      - name: Compile task 4
+        run: ghc --make -Wall -Werror -O2 4_uzd_haskell.hs -o demo4
+
+      - name: Run task 4 unit tests
+        run: ./demo4
