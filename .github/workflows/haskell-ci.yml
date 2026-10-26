@@ -50,3 +50,9 @@ jobs:
 
       - name: Run task 4 unit tests
         run: ./demo4
+
+      - name: Compile task 5
+        run: ghc --make -Wall -Werror -O2 5_uzd_haskell.hs -o demo5
+
+      - name: Run task 5 unit tests
+        run: ./demo5
