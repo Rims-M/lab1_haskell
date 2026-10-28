@@ -3,7 +3,7 @@ import Test.HUnit
 
 data Tree a = Branch a (Tree a) (Tree a) | Leaf
 isSearchTree :: Ord a => Tree a -> Bool
-isSearchTree tree = checkTree Nothing Nothing tree
+isSearchTree = checkTree Nothing Nothing 
 
 checkTree :: Ord a => Maybe a -> Maybe a -> Tree a -> Bool
 checkTree _ _ Leaf = True
