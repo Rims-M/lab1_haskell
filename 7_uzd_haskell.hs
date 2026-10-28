@@ -26,14 +26,14 @@ checkTree minVal maxVal (Branch x left right) =
 insertTree :: Ord a => a -> Tree a -> Tree a
 insertTree e Leaf = Branch e Leaf Leaf
 insertTree e (Branch x left right)
-    | e <= x = Branch x (insertTree e left) right
-    | e > x  = Branch x left (insertTree e right)
+    | e <= x    = Branch x (insertTree e left) right
+    | otherwise = Branch x left (insertTree e right)
 
 insertTreeWrong :: Ord a => a -> Tree a -> Tree a
 insertTreeWrong e Leaf = Branch e Leaf Leaf
 insertTreeWrong e (Branch x left right)
-    | e <= x = Branch x (insertTreeWrong e left) right
-    | e > x  = Branch x (insertTreeWrong e left) right   
+    | e <= x    = Branch x (insertTreeWrong e left) right
+    | otherwise = Branch x (insertTreeWrong e left) right   
 
 
 goodTree :: Tree Int
