@@ -1,4 +1,6 @@
 import Test.HUnit
+{-# ANN module "HLint: ignore Use ++" #-}
+{-# ANN module "HLint: ignore Use concatMap" #-}
 --8.uzdevums
 
 --map f . concat = concat . map (map f)
