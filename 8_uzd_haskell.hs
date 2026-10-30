@@ -1,7 +1,7 @@
 import Test.HUnit
 {-# ANN module "HLint: ignore Use ++" #-}
 {-# ANN module "HLint: ignore Use concatMap" #-}
-default (Int)
+--default (Int)
 
 --8.uzdevums
 
@@ -36,40 +36,53 @@ default (Int)
 --Tatad:
 -- map f . concat = concat . map (map f)
 
+double :: Int -> Int
+double x = x * 2
+
+addTen :: Int -> Int
+addTen x = x + 10
+
+
 tests :: Test
 tests =
     TestList
     [TestLabel "parasts_saraksts"
         (TestCase (assertEqual "rezultats" 
-        (map (*2) (concat [[1, 2], [3, 4]]))
-            (concat (map (map (*2)) [[1, 2], [3, 4]])))),
+        (map double (concat [[1, 2], [3, 4]]))
+            (concat (map (map double) [[1, 2], [3, 4]])))),
 
     TestLabel "tukss_saraksts"
         (TestCase (assertEqual "rezultats"
-            (map (*2) (concat ([] :: [[Int]])))
-                (concat (map (map (*2)) ([] :: [[Int]]))))), 
+            (map double (concat ([] :: [[Int]])))
+                (concat (map (map double) ([] :: [[Int]]))))), 
 
     TestLabel "viens_saraksts_tukss"
         (TestCase (assertEqual "rezultats"
-        (map (*2) (concat [[], [3, 4]]))
-        (concat (map (map (*2)) [[], [3, 4]])))),
+        (map double (concat [[], [3, 4]]))
+        (concat (map (map double) [[], [3, 4]])))),
 
     TestLabel "negativs_saraksts"
         (TestCase (assertEqual "rezultats" 
-        (map (*2) (concat [[-1, -2], [-3, -4]]))
-            (concat (map (map (*2)) [[-1, -2], [-3, -4]])))),
+        (map double (concat [[-1, -2], [-3, -4]]))
+            (concat (map (map double) [[-1, -2], [-3, -4]])))),
 
     TestLabel "jauns_saraksts"
         (TestCase (assertEqual "rezultats" 
-        (map (+10) (concat [[1, 2], [3, 4]]))
-            (concat (map (map (+10)) [[1, 2], [3, 4]]))))
+        (map addTen (concat [[1, 2], [3, 4]]))
+            (concat (map (map addTen) [[1, 2], [3, 4]]))))
 
     ]
 
 main :: IO ()
 main = do
-    let lists = [[1, 2], [3, 4]]
-    let f x = x * 2
+    --let lists = [[1, 2], [3, 4]]
+    --let f x = x * 2
+
+    let lists :: [[Int]]
+        lists = [[1, 2], [3, 4]]
+
+    let f :: Int -> Int
+        f x = x * 2
 
     let leftSide = map f (concat lists)
     let rightSide = concat (map (map f) lists)
